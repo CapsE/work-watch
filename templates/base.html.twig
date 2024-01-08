@@ -5,6 +5,27 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {% block stylesheets %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+            <style>
+                nav {
+                    background: #333;
+                    color: white;
+                    display: flex;
+                    gap: 1rem;
+                    padding: 1rem;
+                }
+
+                nav a {
+                    color: white;
+                    text-decoration: none;
+                }
+
+                main {
+                    max-width: 1440px;
+                    margin: 0 auto;
+                }
+            </style>
         {% endblock %}
 
         {% block javascripts %}
@@ -14,8 +35,15 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}
-            <h1>{{ number }}</h1>
-        {% endblock %}
+        <nav>
+            <a href="{{ path('worker_new') }}">Create Worker</a>
+            <a href="{{ path('project_new') }}">Create Project</a>
+            <a href="{{ path('workload_new') }}">Create Workload</a>
+        </nav>
+        <main>
+            {% block body %}
+                <h1>{{ number }}</h1>
+            {% endblock %}
+        </main>
     </body>
 </html>
