@@ -34,7 +34,7 @@ class WorkloadController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('workload/new.html.twig', [
+        return $this->render('workload/form.html.twig', [
             'form' => $form->createView(),
         ]);
     }

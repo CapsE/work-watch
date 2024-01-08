@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    <style>
+        th,
+        td {
+            padding: 1rem;
+        }
+
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Workers</h1>
+
+    <table>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+        {% for worker in workers %}
+            <tr>
+                <td>
+                    {% include 'includes/profile-picture.html.twig' with {
+                        image: worker.image,
+                        name: worker.name
+                    } %}
+                </td>
+                <td>{{ worker.name }}</td>
+                <td>
+                    <a href="{{ path('worker_edit', { 'id': worker.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

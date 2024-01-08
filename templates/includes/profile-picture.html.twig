@@ -1,0 +1,5 @@
+{% if image %}
+    <img src="/upload/{{ image }}" alt="{{ name }}">
+{% else %}
+    <img src="{{ asset('images/profile.png') }}" alt="{{ name }}">
+{% endif %}

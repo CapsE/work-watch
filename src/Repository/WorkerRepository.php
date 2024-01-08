@@ -21,6 +21,14 @@ class WorkerRepository extends ServiceEntityRepository
         parent::__construct($registry, Worker::class);
     }
 
+    public function findAllSortedByName()
+    {
+        return $this->createQueryBuilder('w')
+            ->orderBy('w.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Worker[] Returns an array of Worker objects
 //     */

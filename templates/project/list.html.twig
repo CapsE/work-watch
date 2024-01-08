@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    <style>
+        th,
+        td {
+            padding: 1rem;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Projects</h1>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th></th>
+        </tr>
+        {% for project in projects %}
+            <tr>
+                <td>{{ project.name }}</td>
+                <td>
+                    <a href="{{ path('project_edit', { 'id': project.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

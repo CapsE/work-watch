@@ -1,15 +1,83 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .details {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .details img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        table {
+            background: #eee;
+        }
+
+        th,
+        td {
+            padding: 0.5rem 1rem;
+        }
+
+        progress {
+            width: 100px;
+        }
+
+        .tab-view {
+            display: flex;
+        }
+
+        .tab-view a {
+            padding: 1rem;
+            background: #eee;
+            text-decoration: none;
+            color: #000;
+            border: solid 1px #000;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
     <h1>Current Week: 2</h1>
 
-    {% for project in projects %}
-        <h3>{{ project.name }}</h3>
-        {% for workload in project.workloads %}
-            <p>Worker: {{ workload.worker.name }}</p>
-            <p>Hours Planned: {{ workload.hoursPlanned }}</p>
-            <p>Work Done: {{ workload.workDone }}</p>
-            <!-- Add more details as needed -->
+    <div class="tab-view">
+        <a href="{{ path('home') }}">Home</a>
+        <a href="{{ path('worker_list') }}">Workers</a>
+        <a href="{{ path('project_list') }}">Projects</a>
+    </div>
+    <table>
+        <tr>
+            <th>Project</th>
+            <th>Workers</th>
+        </tr>
+        {% for project in projects %}
+            <tr>
+                <td>
+                    <strong>{{ project.name }} ({{ project.short }})</strong>
+                </td>
+                <td class="details">
+                    {% for workload in project.workloads %}
+                        <div>
+                           {% include 'includes/profile-picture.html.twig' with {
+                               image: workload.worker.image,
+                               name: workload.worker.name
+                           } %}
+
+                            <div>{{ workload.worker.name }}</div>
+                            <div>
+                                <progress value="{{ workload.workDone }}" max="{{ workload.hoursPlanned }}"></progress>
+                                {{ workload.hoursPlanned }}h
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </td>
+
+            </tr>
         {% endfor %}
-    {% endfor %}
+    </table>
 {% endblock %}
