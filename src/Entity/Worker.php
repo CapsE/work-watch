@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\HttpFoundation\File\File;
 use App\Repository\WorkerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -21,6 +22,15 @@ class Worker
 
     #[ORM\OneToMany(mappedBy: 'worker', targetEntity: Workload::class)]
     private $workloads;
+
+    /**
+     * @Assert\Image(
+     *     maxSize = "1024k",
+     *     mimeTypes = {"image/jpeg", "image/png"},
+     *     mimeTypesMessage = "Please upload a valid image (JPEG or PNG)"
+     * )
+     */
+    private ?File $imageFile = null;
 
     public function getId(): ?int
     {
@@ -65,5 +75,15 @@ class Worker
     public function setWorkloads($workloads): void
     {
         $this->workloads = $workloads;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): void
+    {
+        $this->imageFile = $imageFile;
     }
 }

@@ -4,8 +4,10 @@ namespace App\Form;
 
 use App\Entity\Worker;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class WorkerType extends AbstractType
 {
@@ -13,7 +15,18 @@ class WorkerType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('image')
+            ->add('imageFile', FileType::class, [
+                'label' => 'Profile Picture',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new Assert\Image([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => ['image/jpeg', 'image/png'],
+                        'mimeTypesMessage' => 'Please upload a valid image (JPEG or PNG)',
+                    ]),
+                ],
+            ])
         ;
     }
 

@@ -21,6 +21,17 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
+    public function findAllProjectsWithWorkers()
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.workloads', 'w')
+            ->leftJoin('w.worker', 'worker')
+            ->addSelect('w')
+            ->addSelect('worker')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Project[] Returns an array of Project objects
 //     */

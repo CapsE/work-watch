@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Current Week: 2</h1>
+
+    {% for project in projects %}
+        <h3>{{ project.name }}</h3>
+        {% for workload in project.workloads %}
+            <p>Worker: {{ workload.worker.name }}</p>
+            <p>Hours Planned: {{ workload.hoursPlanned }}</p>
+            <p>Work Done: {{ workload.workDone }}</p>
+            <!-- Add more details as needed -->
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

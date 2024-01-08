@@ -20,13 +20,12 @@ class WorkloadType extends AbstractType
             ->add('work_done')
             ->add('worker', EntityType::class, [
                 'class' => Worker::class,
-'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
             ->add('project', EntityType::class, [
                 'class' => Project::class,
-'choice_label' => 'id',
-            ])
-        ;
+                'choice_label' => 'short',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
